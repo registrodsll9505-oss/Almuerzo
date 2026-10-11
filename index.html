@@ -5,9 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fdebe8">
 <title>Tienes correo 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400&family=Italianno&display=swap" rel="stylesheet">
 <style>
 :root{--rubor:#fdebe8;--tinta:#1b2a4e;--gris:#6b7491;--rojo:#e0314f;
-  --linea:rgba(27,42,78,.1);--ease:cubic-bezier(.2,.8,.2,1)}
+  --linea:rgba(27,42,78,.1);--ease:cubic-bezier(.2,.8,.2,1);
+  --serif:"Bodoni Moda",Didot,"Bodoni 72",Georgia,serif;
+  --script:Italianno,"Snell Roundhand",cursive}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--rojo);outline-offset:3px}
@@ -15,17 +20,15 @@ body{min-height:100dvh;display:flex;align-items:center;justify-content:center;
   padding:48px 22px 40px;overflow-x:hidden;color:var(--tinta);background:var(--rubor);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
   -webkit-font-smoothing:antialiased}
-/* Borde de sobre aéreo */
 body::before{content:"";position:fixed;inset:0 0 auto;height:10px;z-index:3;
   background:repeating-linear-gradient(-45deg,var(--rojo) 0 14px,#fff 14px 28px,
   var(--tinta) 28px 42px,#fff 42px 56px)}
 .caja{width:100%;max-width:400px}
+
+/* ---------- Portada ---------- */
 #inicio{text-align:center}
-#menu{animation:entra .5s var(--ease) both}
 h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 .sub{margin:8px 0 26px;font-size:17px;line-height:1.4;color:var(--gris)}
-
-/* Estampilla */
 .sello{--s:14px;position:relative;width:calc(var(--s)*17);height:calc(var(--s)*21);
   margin:0 auto 34px;transform:rotate(-4deg);
   background:radial-gradient(circle,#0000 4.5px,#fff 5px)
@@ -40,30 +43,46 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
   object-position:50% 38%}
 .pie{display:flex;justify-content:space-between;align-items:baseline;padding:6px 2px 7px;
   font-family:Didot,"Bodoni 72",Georgia,serif}
-.pie span{font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+.pie span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
 .pie b{font-size:18px;font-style:italic;font-weight:400}
 .mata{position:absolute;right:-64px;top:-34px;width:170px;transform:rotate(14deg);
   color:var(--rojo);opacity:.8;mix-blend-mode:multiply;pointer-events:none;
   animation:sella .45s var(--ease) .8s both}
 
-/* Lista de opciones */
-#lista{overflow:hidden;background:#fff;border-radius:22px;
-  box-shadow:0 10px 30px rgba(27,42,78,.08)}
-.op{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;text-align:left;
-  font:inherit;color:inherit;background:none;border:0;border-top:1px solid var(--linea);
-  transition:background .2s}
-.op:first-child{border-top:0}
-.op:active{background:rgba(27,42,78,.04)}
-.op .em{flex:none;width:34px;font-size:27px;text-align:center}
-.op .tx{flex:1}
-.op strong{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
-.op small{display:block;margin-top:2px;font-size:13px;color:var(--gris)}
-.op .ok{flex:none;display:grid;place-items:center;width:24px;height:24px;
-  border:1.5px solid #c5cad8;border-radius:50%;font-size:13px;font-weight:700;
-  color:transparent;transition:background .25s,border-color .25s,transform .25s var(--ease)}
-.op.on .ok{background:var(--rojo);border-color:var(--rojo);color:#fff;transform:scale(1.1)}
+/* ---------- Carta italiana ---------- */
+.carta{position:relative;padding:36px 24px 24px;text-align:center;background:#fffdf8;
+  border-radius:6px;box-shadow:0 1px 1px rgba(27,42,78,.06),0 24px 48px rgba(27,42,78,.16);
+  transform-origin:top center;animation:abre .8s var(--ease) both}
+.carta::before,.carta::after{content:"";position:absolute;pointer-events:none}
+.carta::before{inset:9px;border:1px solid rgba(27,42,78,.28)}
+.carta::after{inset:13px;border:1px solid rgba(27,42,78,.12)}
+.casa{font-family:var(--script);font-size:50px;line-height:.95;color:var(--rojo)}
+.tricolor{width:60px;height:4px;margin:12px auto 14px;border-radius:2px;
+  background:linear-gradient(90deg,#2f8f5b 33.3%,#fff 33.3% 66.6%,var(--rojo) 66.6%);
+  box-shadow:0 0 0 1px rgba(27,42,78,.08)}
+.giorno{font-family:var(--serif);font-size:12px;letter-spacing:.3em;text-transform:uppercase}
+.fecha{margin-top:4px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gris)}
+.pregunta{margin:22px 0 4px;font-family:var(--serif);font-size:26px;line-height:1.15;font-weight:400}
+.toca{margin-bottom:8px;font-size:14px;color:var(--gris)}
+.plato{display:flex;gap:10px;width:100%;padding:14px 0;text-align:left;font:inherit;
+  color:inherit;background:none;border:0;border-top:1px solid var(--linea)}
+#lista .plato:first-child{border-top:0}
+.plato .cora{flex:none;width:22px;font-size:19px;line-height:1.25;color:#cfd3df;
+  transition:color .2s,transform .3s var(--ease)}
+.plato .tx{flex:1;min-width:0}
+.plato .fila{display:flex;align-items:baseline;gap:6px}
+.plato strong{font-family:var(--serif);font-size:18px;font-weight:600;transition:color .2s}
+.plato .puntos{flex:1;min-width:10px;border-bottom:2px dotted rgba(27,42,78,.28);
+  transform:translateY(-4px)}
+.plato em{font-family:var(--serif);font-size:15px;white-space:nowrap;color:var(--rojo)}
+.plato small{display:block;margin-top:3px;font-size:14px;line-height:1.35;color:var(--gris)}
+.plato.on .cora{color:var(--rojo);transform:scale(1.3)}
+.plato.on strong{color:var(--rojo)}
+.servicio{margin-top:6px;padding-top:14px;border-top:1px solid var(--linea);
+  font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gris)}
 
-#resp{min-height:22px;margin:18px 4px 12px;font-size:15px;font-weight:600;color:var(--rojo)}
+#resp{min-height:34px;margin:18px 0 10px;text-align:center;font-family:var(--script);
+  font-size:32px;line-height:1.05;color:var(--rojo)}
 #antojo{width:100%;height:52px;margin-bottom:12px;padding:0 18px;font:inherit;font-size:16px;
   color:inherit;background:#fff;border:1px solid var(--linea);border-radius:16px}
 .btn{display:block;width:100%;height:54px;font:inherit;font-size:17px;font-weight:600;
@@ -76,7 +95,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 
 @keyframes cae{from{opacity:0;transform:translateY(-30px) rotate(8deg) scale(1.15)}}
 @keyframes sella{from{opacity:0;transform:rotate(14deg) scale(1.7)}}
-@keyframes entra{from{opacity:0;transform:translateY(14px)}}
+@keyframes abre{from{opacity:0;transform:perspective(900px) rotateX(-22deg) translateY(18px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -87,7 +106,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
   <div class="sello">
     <div class="sello-in">
       <div class="foto">💌<img id="foto" alt="Nosotros" onerror="this.remove()"></div>
-      <div class="pie"><span>Nosotros</span><b>∞</b></div>
+      <div class="pie"><span>Nosotros en Paris 🇫🇷</span><b>∞</b></div>
     </div>
     <svg class="mata" viewBox="0 0 190 120" fill="none" stroke="currentColor" stroke-width="1.6">
       <defs><path id="arco" d="M16 60a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
@@ -106,49 +125,63 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 </div>
 
 <div class="caja" id="menu" hidden>
-  <h1>¿Qué almorzamos hoy?</h1>
-  <p class="sub">Elige el plan que más te provoque.</p>
-  <div id="lista"></div>
+  <div class="carta">
+    <p class="casa">Trattoria dell'Amore</p>
+    <div class="tricolor"></div>
+    <p class="giorno">Menù del giorno</p>
+    <p class="fecha" id="fecha"></p>
+    <h2 class="pregunta">¿Qué almorzamos hoy?</h2>
+    <p class="toca">Toca el plato que más te provoque.</p>
+    <div id="lista"></div>
+    <p class="servicio">Servicio incluido: besos ilimitados.</p>
+  </div>
   <p id="resp"></p>
-  <input id="antojo" placeholder="¿Qué se te antoja?" hidden>
-  <button class="btn rojo" id="enviar" hidden>Enviar por WhatsApp</button>
+  <input id="antojo" placeholder="Nota para el chef: ¿qué se te antoja?" hidden>
+  <button class="btn rojo" id="enviar" hidden>Enviar mi pedido por WhatsApp</button>
 </div>
 
 <script>
 const NUMERO = "573136614484"; // tu WhatsApp: 57 + número, sin + ni espacios
-const FOTO   = "20260308_125754.jpg";     // nombre EXACTO de la foto que subas al repositorio
-const MUSICA = "";             // opcional: nombre de un mp3 que subas al repositorio
+const FOTO   = "20260308_125754.jpg";     // nombre EXACTO de la foto en el repositorio
+const MUSICA = "";             // nombre EXACTO del mp3 que subas (recomendado)
 
 const OPCIONES = [
-  { e: "🫘", t: "Cocinemos frijolitos juntos", s: "Tú y yo en la cocina, con música",
-    r: "¡Plan perfecto! Yo pico y tú pruebas 💛" },
-  { e: "🛵", t: "Pidamos lo que se te antoje", s: "Tú eliges, yo invito",
-    r: "Tus antojos mandan ✨", antojo: true },
-  { e: "🌹", t: "Te invito a una cita de almuerzo", s: "Nos arreglamos y salimos",
-    r: "Ponte aún más linda, que salimos 🌹" },
-  { e: "👨‍🍳", t: "Hoy te consiento yo", s: "Yo cocino y tú descansas",
-    r: "Tú solo relájate, mi amor 💕" }
+  { e: "🫘", t: "Frijolitos a dúo", p: "3 besos",
+    s: "Cocinamos juntos, tú y yo, con música de fondo",
+    r: "¡Plan perfecto! Yo pico y tú pruebas" },
+  { e: "🛵", t: "Antojo a domicilio", p: "1 abrazo",
+    s: "Pedimos lo que tú quieras, yo invito",
+    r: "Tus antojos mandan", antojo: true },
+  { e: "🌹", t: "Cita de almuerzo", p: "2 besos",
+    s: "Nos arreglamos y salimos a comer",
+    r: "Ponte aún más linda, que salimos" },
+  { e: "👨‍🍳", t: "Especial del chef", p: "1 sonrisa",
+    s: "Yo cocino y tú descansas",
+    r: "Tú solo relájate, mi amor" }
 ];
 
 const $ = id => document.getElementById(id);
 let sel = null;
 
-// Foto y fecha del matasellos (se actualiza sola cada día)
+// Foto y fechas (se actualizan solas cada día)
 $("foto").src = FOTO;
 const f = new Date();
 $("dia").textContent = f.toLocaleDateString("es-CO", { day: "numeric", month: "short" })
   .replace(".", "").toUpperCase();
 $("anio").textContent = f.getFullYear();
+$("fecha").textContent = f.toLocaleDateString("it-IT",
+  { weekday: "long", day: "numeric", month: "long" });
 
-// Opciones
+// Platos de la carta
 OPCIONES.forEach(o => {
   const b = document.createElement("button");
-  b.className = "op";
-  b.innerHTML = `<span class="em">${o.e}</span><span class="tx"><strong>${o.t}</strong>` +
-                `<small>${o.s}</small></span><span class="ok">✓</span>`;
+  b.className = "plato";
+  b.innerHTML = `<span class="cora">&#9829;&#xFE0E;</span><span class="tx">` +
+    `<span class="fila"><strong>${o.t}</strong><span class="puntos"></span><em>${o.p}</em></span>` +
+    `<small>${o.s}</small></span>`;
   b.onclick = () => {
     sel = o;
-    document.querySelectorAll(".op").forEach(x => x.classList.toggle("on", x === b));
+    document.querySelectorAll(".plato").forEach(x => x.classList.toggle("on", x === b));
     $("resp").textContent = o.r;
     $("antojo").hidden = !o.antojo;
     $("enviar").hidden = false;
@@ -157,49 +190,47 @@ OPCIONES.forEach(o => {
   $("lista").appendChild(b);
 });
 
-// Abre WhatsApp con la respuesta ya escrita
+// Abre WhatsApp con el pedido ya escrito
 $("enviar").onclick = () => {
-  let m = `Ya elegí nuestro almuerzo 💌\n${sel.e} ${sel.t}`;
+  let m = `Ya elegí nuestro almuerzo 💌\n${sel.e} ${sel.t}\nPrecio: ${sel.p} 😘`;
   const a = $("antojo").value.trim();
   if (sel.antojo && a) m += `\nSe me antoja: ${a}`;
   location.href = `https://wa.me/${NUMERO}?text=${encodeURIComponent(m)}`;
 };
 
-// Música: tu mp3 si pusiste uno; si no, una tarantela de mandolina hecha en código
-const MEL = [69,72,76,81,76,72, 69,72,76,81,0,76, 68,71,76,80,76,71, 68,71,74,76,0,76,
-             81,79,77,76,74,72, 74,77,81,77,76,74, 76,80,83,80,76,74, 72,71,69,69,0,0];
-const BAJO = [45,52, 45,52, 40,47, 40,47, 45,52, 50,45, 40,47, 45,52];
+// Música: tu mp3 si pusiste uno; si no, un vals suave hecho en código
+const MEL = [76,0,0,79,0,76, 72,0,0,0,0,0, 74,0,0,77,0,74, 71,0,0,0,0,0,
+             81,0,79,77,0,81, 79,0,0,76,0,0, 77,0,76,74,0,71, 72,0,0,0,0,0];
+const ACOMP = [[48,64,67],[48,64,67],[43,59,65],[43,59,65],
+               [41,60,65],[48,64,67],[43,59,65],[48,64,67]];
 let ctx, timer = null, paso = 0, aud = null, suena = false;
 
-function pluck(m, vol, dur, off = 0) {
-  const t = ctx.currentTime + off, g = ctx.createGain(), lp = ctx.createBiquadFilter();
-  lp.type = "lowpass"; lp.frequency.value = m < 60 ? 700 : 3000;
-  g.gain.setValueAtTime(vol, t);
+function nota(m, vol, dur) {
+  const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = "triangle"; o.frequency.value = 440 * 2 ** ((m - 69) / 12);
+  g.gain.setValueAtTime(.0001, t);
+  g.gain.exponentialRampToValueAtTime(vol, t + .03);
   g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-  lp.connect(g); g.connect(ctx.destination);
-  for (const d of [-6, 6]) {
-    const o = ctx.createOscillator();
-    o.type = "sawtooth"; o.detune.value = d;
-    o.frequency.value = 440 * 2 ** ((m - 69) / 12);
-    o.connect(lp); o.start(t); o.stop(t + dur);
-  }
+  o.connect(g); g.connect(ctx.destination);
+  o.start(t); o.stop(t + dur + .05);
 }
 function tocar() {
-  const i = paso++ % MEL.length;
-  if (MEL[i]) { pluck(MEL[i], .07, .4); pluck(MEL[i], .04, .3, .08); }
-  if (i % 3 === 0) pluck(BAJO[i / 3], .1, .5);
+  const i = paso++ % MEL.length, s = i % 6, [bajo, a, b] = ACOMP[Math.floor(i / 6)];
+  if (MEL[i]) nota(MEL[i], .1, 1.8);
+  if (s === 0) nota(bajo, .09, 1.4);
+  if (s === 2 || s === 4) { nota(a, .035, .7); nota(b, .035, .7); }
 }
 function musica(on) {
   suena = on;
   if (MUSICA) {
-    aud = aud || Object.assign(new Audio(MUSICA), { loop: true, volume: .6 });
+    aud = aud || Object.assign(new Audio(MUSICA), { loop: true, volume: .5 });
     on ? aud.play().catch(() => {}) : aud.pause();
   } else {
     clearInterval(timer);
     if (on) {
       ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
       ctx.resume();
-      timer = setInterval(tocar, 165);
+      timer = setInterval(tocar, 300);
     }
   }
   $("son").textContent = on ? "🔊" : "🔇";
