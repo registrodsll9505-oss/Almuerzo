@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#fdebe8">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tienes correo 💌">
@@ -12,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Italianno&display=swap" rel="stylesheet">
 <style>
-:root{--rubor:#fdebe8;--tinta:#1b2a4e;--gris:#6b7491;--rojo:#e0314f;
+:root{color-scheme:light;--rubor:#fdebe8;--tinta:#1b2a4e;--gris:#6b7491;--rojo:#e0314f;
   --linea:rgba(27,42,78,.1);--ease:cubic-bezier(.2,.8,.2,1);
   --serif:"Bodoni Moda",Didot,"Bodoni 72",Georgia,serif;
   --script:Italianno,"Snell Roundhand",cursive}
@@ -53,6 +54,8 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 .mata{position:absolute;right:-64px;top:-34px;width:170px;transform:rotate(14deg);
   color:var(--rojo);opacity:.8;mix-blend-mode:multiply;pointer-events:none;
   animation:sella .45s var(--ease) .8s both}
+/* La estampilla espera a que la foto esté lista */
+#inicio:not(.listo) .sello,#inicio:not(.listo) .mata{animation-play-state:paused}
 
 /* ---------- Carta italiana ---------- */
 .carta{position:relative;padding:36px 24px 24px;text-align:center;background:#fffdf8;
@@ -85,6 +88,9 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 .plato.on strong{color:var(--rojo)}
 .servicio{margin-top:6px;padding-top:14px;border-top:1px solid var(--linea);
   font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gris)}
+.firma{margin-top:16px;padding-right:8px;text-align:right;font-family:var(--script);
+  font-size:32px;line-height:1}
+.firma i{display:block;margin-bottom:2px;font-family:var(--serif);font-size:13px;color:var(--gris)}
 
 #resp{min-height:34px;margin:18px 0 10px;text-align:center;font-family:var(--script);
   font-size:32px;line-height:1.05;color:var(--rojo)}
@@ -112,7 +118,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 <div class="caja" id="inicio">
   <div class="sello">
     <div class="sello-in">
-      <div class="foto">💌<img id="foto" alt="Nosotros" onerror="this.remove()"></div>
+      <div class="foto">💌<img id="foto" alt="Nosotros"></div>
       <div class="pie"><span>Nosotros en Paris 🇫🇷</span><b>∞</b></div>
     </div>
     <svg class="mata" viewBox="0 0 190 120" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -141,6 +147,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
     <p class="toca">Toca el plato que más te provoque.</p>
     <div id="lista"></div>
     <p class="servicio">Servicio incluido: besos ilimitados.</p>
+    <p class="firma"><i>Con todo mi amor,</i><span id="firma"></span></p>
   </div>
   <p id="resp"></p>
   <input id="antojo" placeholder="Nota para el chef: ¿qué se te antoja?" hidden>
@@ -148,9 +155,10 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 </div>
 
 <script>
-const NUMERO = "573136614484"; // tu WhatsApp: 57 + número, sin + ni espacios
-const FOTO   = "20260308_125754.jpg";     // nombre EXACTO de la foto en el repositorio
-const MUSICA = "";             // nombre EXACTO del mp3 que subas (recomendado)
+const NUMERO = "573136614484";
+const FOTO   = "20260308_125754.jpg";
+const FIRMA  = "tu chef";      // cámbialo por tu nombre o apodo si quieres
+const MUSICA = "villatic_music-italy-468768.mp3";             // nombre EXACTO del mp3 que subas (opcional)
 
 const OPCIONES = [
   { e: "🫘", t: "Frijolitos a dúo", p: "3 besos",
@@ -174,15 +182,21 @@ let sel = null;
 if (document.fonts) ['50px Italianno', '18px "Bodoni Moda"', 'italic 15px "Bodoni Moda"']
   .forEach(x => document.fonts.load(x));
 
-// Foto (aparece con fundido al cargar) y fechas automáticas
-$("foto").onload = e => e.target.classList.add("ok");
-$("foto").src = FOTO;
+// La estampilla cae cuando la foto ya cargó (o a los 3 segundos, lo que pase primero)
+const img = $("foto"), listo = () => $("inicio").classList.add("listo");
+img.onload  = () => { img.classList.add("ok"); listo(); };
+img.onerror = () => { img.remove(); listo(); };
+img.src = FOTO;
+setTimeout(listo, 3000);
+
+// Fechas automáticas y firma
 const f = new Date();
 $("dia").textContent = f.toLocaleDateString("es-CO", { day: "numeric", month: "short" })
   .replace(".", "").toUpperCase();
 $("anio").textContent = f.getFullYear();
 $("fecha").textContent = f.toLocaleDateString("it-IT",
   { weekday: "long", day: "numeric", month: "long" });
+$("firma").textContent = FIRMA;
 
 // Platos de la carta
 OPCIONES.forEach(o => {
