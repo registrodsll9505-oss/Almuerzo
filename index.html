@@ -3,86 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una pregunta para ti 💌</title>
+<meta name="theme-color" content="#fdebe8">
+<title>Tienes correo 💌</title>
 <style>
+:root{--rubor:#fdebe8;--tinta:#1b2a4e;--gris:#6b7491;--rojo:#e0314f;
+  --linea:rgba(27,42,78,.1);--ease:cubic-bezier(.2,.8,.2,1)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
-body{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px;
-  font-family:-apple-system,"Helvetica Neue",sans-serif;color:#5a3442;overflow-x:hidden;
-  background:linear-gradient(160deg,#ffe3ec,#fff4e6 55%,#ffd6e0)}
-.caja{position:relative;z-index:1;width:100%;max-width:420px;text-align:center}
-h1{font-family:"Snell Roundhand","Brush Script MT",cursive;font-size:46px;line-height:1.1;color:#d6456b}
-.sub{margin:10px 0 22px;opacity:.8}
-.sobre{font-size:84px;animation:late 1.4s ease-in-out infinite}
-.op{display:flex;align-items:center;gap:14px;width:100%;margin-bottom:12px;padding:16px;
-  font:inherit;font-size:16px;color:inherit;text-align:left;background:rgba(255,255,255,.8);
-  border:2px solid transparent;border-radius:20px;box-shadow:0 6px 18px rgba(214,69,107,.12);
-  transition:transform .15s,border-color .15s}
-.op:active{transform:scale(.97)}
-.op.on{border-color:#d6456b;background:#fff}
-.op b{font-size:30px;font-weight:400}
-#resp{min-height:24px;margin:14px 0;font-weight:600;color:#d6456b}
-#antojo{width:100%;margin-bottom:14px;padding:14px;font:inherit;font-size:16px;color:inherit;
-  border:2px solid #f6b8c8;border-radius:16px;background:#fff;outline:none}
-.btn{width:100%;padding:16px;font:inherit;font-size:17px;font-weight:600;color:#fff;border:0;
-  border-radius:999px;background:linear-gradient(135deg,#ff7a9c,#d6456b);
-  box-shadow:0 8px 20px rgba(214,69,107,.35)}
-#son{position:fixed;top:14px;right:14px;z-index:2;width:44px;height:44px;font-size:20px;
-  border:0;border-radius:50%;background:rgba(255,255,255,.8)}
-.cora{position:fixed;bottom:-40px;z-index:0;font-style:normal;opacity:.55;
-  pointer-events:none;animation:sube linear infinite}
-@keyframes sube{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
-@keyframes late{50%{transform:scale(1.12)}}
-@media (prefers-reduced-motion:reduce){.cora,.sobre{animation:none}}
+:focus-visible{outline:3px solid var(--rojo);outline-offset:3px}
+body{min-height:100dvh;display:flex;align-items:center;justify-content:center;
+  padding:48px 22px 40px;overflow-x:hidden;color:var(--tinta);background:var(--rubor);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
+  -webkit-font-smoothing:antialiased}
+/* Borde de sobre aéreo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:10px;z-index:3;
+  background:repeating-linear-gradient(-45deg,var(--rojo) 0 14px,#fff 14px 28px,
+  var(--tinta) 28px 42px,#fff 42px 56px)}
+.caja{width:100%;max-width:400px}
+#inicio{text-align:center}
+#menu{animation:entra .5s var(--ease) both}
+h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
+.sub{margin:8px 0 26px;font-size:17px;line-height:1.4;color:var(--gris)}
+
+/* Estampilla */
+.sello{--s:14px;position:relative;width:calc(var(--s)*17);height:calc(var(--s)*21);
+  margin:0 auto 34px;transform:rotate(-4deg);
+  background:radial-gradient(circle,#0000 4.5px,#fff 5px)
+    calc(var(--s)/-2) calc(var(--s)/-2)/var(--s) var(--s);
+  filter:drop-shadow(0 16px 24px rgba(27,42,78,.2));
+  animation:cae .9s var(--ease) both}
+.sello-in{position:absolute;inset:7px;display:flex;flex-direction:column;
+  padding:9px 9px 0;background:#fff}
+.foto{flex:1;min-height:0;position:relative;overflow:hidden;display:grid;
+  place-items:center;font-size:54px;background:linear-gradient(160deg,#f9cdd3,#cdd6ee)}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 38%}
+.pie{display:flex;justify-content:space-between;align-items:baseline;padding:6px 2px 7px;
+  font-family:Didot,"Bodoni 72",Georgia,serif}
+.pie span{font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+.pie b{font-size:18px;font-style:italic;font-weight:400}
+.mata{position:absolute;right:-64px;top:-34px;width:170px;transform:rotate(14deg);
+  color:var(--rojo);opacity:.8;mix-blend-mode:multiply;pointer-events:none;
+  animation:sella .45s var(--ease) .8s both}
+
+/* Lista de opciones */
+#lista{overflow:hidden;background:#fff;border-radius:22px;
+  box-shadow:0 10px 30px rgba(27,42,78,.08)}
+.op{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;text-align:left;
+  font:inherit;color:inherit;background:none;border:0;border-top:1px solid var(--linea);
+  transition:background .2s}
+.op:first-child{border-top:0}
+.op:active{background:rgba(27,42,78,.04)}
+.op .em{flex:none;width:34px;font-size:27px;text-align:center}
+.op .tx{flex:1}
+.op strong{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.op small{display:block;margin-top:2px;font-size:13px;color:var(--gris)}
+.op .ok{flex:none;display:grid;place-items:center;width:24px;height:24px;
+  border:1.5px solid #c5cad8;border-radius:50%;font-size:13px;font-weight:700;
+  color:transparent;transition:background .25s,border-color .25s,transform .25s var(--ease)}
+.op.on .ok{background:var(--rojo);border-color:var(--rojo);color:#fff;transform:scale(1.1)}
+
+#resp{min-height:22px;margin:18px 4px 12px;font-size:15px;font-weight:600;color:var(--rojo)}
+#antojo{width:100%;height:52px;margin-bottom:12px;padding:0 18px;font:inherit;font-size:16px;
+  color:inherit;background:#fff;border:1px solid var(--linea);border-radius:16px}
+.btn{display:block;width:100%;height:54px;font:inherit;font-size:17px;font-weight:600;
+  color:#fff;background:var(--tinta);border:0;border-radius:999px;
+  transition:transform .2s var(--ease),opacity .2s}
+.btn:active{transform:scale(.97);opacity:.85}
+.btn.rojo{background:var(--rojo);box-shadow:0 10px 24px rgba(224,49,79,.3)}
+#son{position:fixed;top:22px;right:14px;z-index:4;width:40px;height:40px;font-size:17px;
+  background:#fff;border:0;border-radius:50%;box-shadow:0 4px 14px rgba(27,42,78,.12)}
+
+@keyframes cae{from{opacity:0;transform:translateY(-30px) rotate(8deg) scale(1.15)}}
+@keyframes sella{from{opacity:0;transform:rotate(14deg) scale(1.7)}}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <button id="son" hidden aria-label="Sonido">🔊</button>
 
 <div class="caja" id="inicio">
-  <div class="sobre">💌</div>
-  <h1>Tengo una pregunta para ti</h1>
-  <p class="sub">Es importante (y deliciosa)</p>
-  <button class="btn" id="abrir">Ábreme 💗</button>
+  <div class="sello">
+    <div class="sello-in">
+      <div class="foto">💌<img id="foto" alt="Nosotros" onerror="this.remove()"></div>
+      <div class="pie"><span>Nosotros</span><b>∞</b></div>
+    </div>
+    <svg class="mata" viewBox="0 0 190 120" fill="none" stroke="currentColor" stroke-width="1.6">
+      <defs><path id="arco" d="M16 60a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
+      <circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="33"/>
+      <path d="M118 42q9-7 18 0t18 0t18 0t18 0M118 54q9-7 18 0t18 0t18 0t18 0M118 66q9-7 18 0t18 0t18 0t18 0M118 78q9-7 18 0t18 0t18 0t18 0"/>
+      <g fill="currentColor" stroke="none" font-family="-apple-system,Helvetica,sans-serif" font-weight="700">
+        <text font-size="9"><textPath href="#arco" textLength="270">POSTA D'AMORE ★ VIA AEREA ★ </textPath></text>
+        <text id="dia" x="60" y="58" text-anchor="middle" font-size="12"></text>
+        <text id="anio" x="60" y="72" text-anchor="middle" font-size="11"></text>
+      </g>
+    </svg>
+  </div>
+  <h1>Tienes correo, mi amor</h1>
+  <p class="sub">Adentro hay una pregunta importante. Y deliciosa.</p>
+  <button class="btn" id="abrir">Abrir carta</button>
 </div>
 
 <div class="caja" id="menu" hidden>
-  <h1>¿Qué almorzamos hoy, mi amor?</h1>
-  <p class="sub">Elige el plan que más te provoque</p>
+  <h1>¿Qué almorzamos hoy?</h1>
+  <p class="sub">Elige el plan que más te provoque.</p>
   <div id="lista"></div>
   <p id="resp"></p>
-  <input id="antojo" placeholder="¿Qué se te antoja? 🍕🍣🍔" hidden>
-  <button class="btn" id="enviar" hidden>Enviar mi respuesta 💌</button>
+  <input id="antojo" placeholder="¿Qué se te antoja?" hidden>
+  <button class="btn rojo" id="enviar" hidden>Enviar por WhatsApp</button>
 </div>
 
 <script>
 const NUMERO = "573136614484"; // tu WhatsApp: 57 + número, sin + ni espacios
+const FOTO   = "foto.jpg";     // nombre EXACTO de la foto que subas al repositorio
+const MUSICA = "";             // opcional: nombre de un mp3 que subas al repositorio
 
 const OPCIONES = [
-  { e: "🫘", t: "Cocinemos frijolitos juntos, tú y yo",
+  { e: "🫘", t: "Cocinemos frijolitos juntos", s: "Tú y yo en la cocina, con música",
     r: "¡Plan perfecto! Yo pico y tú pruebas 💛" },
-  { e: "🛵", t: "Pidamos lo que a ti se te antoje",
+  { e: "🛵", t: "Pidamos lo que se te antoje", s: "Tú eliges, yo invito",
     r: "Tus antojos mandan ✨", antojo: true },
-  { e: "🌹", t: "Te invito a una cita de almuerzo",
+  { e: "🌹", t: "Te invito a una cita de almuerzo", s: "Nos arreglamos y salimos",
     r: "Ponte aún más linda, que salimos 🌹" },
-  { e: "👨‍🍳", t: "Hoy te consiento: cocino yo y tú descansas",
+  { e: "👨‍🍳", t: "Hoy te consiento yo", s: "Yo cocino y tú descansas",
     r: "Tú solo relájate, mi amor 💕" }
 ];
 
 const $ = id => document.getElementById(id);
 let sel = null;
 
-// Tarjetas de opciones
+// Foto y fecha del matasellos (se actualiza sola cada día)
+$("foto").src = FOTO;
+const f = new Date();
+$("dia").textContent = f.toLocaleDateString("es-CO", { day: "numeric", month: "short" })
+  .replace(".", "").toUpperCase();
+$("anio").textContent = f.getFullYear();
+
+// Opciones
 OPCIONES.forEach(o => {
   const b = document.createElement("button");
   b.className = "op";
-  b.innerHTML = `<b>${o.e}</b>${o.t}`;
+  b.innerHTML = `<span class="em">${o.e}</span><span class="tx"><strong>${o.t}</strong>` +
+                `<small>${o.s}</small></span><span class="ok">✓</span>`;
   b.onclick = () => {
     sel = o;
     document.querySelectorAll(".op").forEach(x => x.classList.toggle("on", x === b));
     $("resp").textContent = o.r;
     $("antojo").hidden = !o.antojo;
     $("enviar").hidden = false;
+    $("enviar").scrollIntoView({ behavior: "smooth", block: "nearest" });
   };
   $("lista").appendChild(b);
 });
@@ -95,48 +165,56 @@ $("enviar").onclick = () => {
   location.href = `https://wa.me/${NUMERO}?text=${encodeURIComponent(m)}`;
 };
 
-// Melodía tipo cajita de música
-const NOTAS = [523,659,784,659,587,698,880,698,523,659,784,1047,880,784,659,587];
-let ctx, timer = null, n = 0;
-function nota(f) {
-  const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
-  o.type = "triangle"; o.frequency.value = f;
-  g.gain.setValueAtTime(.0001, t);
-  g.gain.exponentialRampToValueAtTime(.12, t + .02);
-  g.gain.exponentialRampToValueAtTime(.0001, t + 1.2);
-  o.connect(g); g.connect(ctx.destination);
-  o.start(t); o.stop(t + 1.3);
+// Música: tu mp3 si pusiste uno; si no, una tarantela de mandolina hecha en código
+const MEL = [69,72,76,81,76,72, 69,72,76,81,0,76, 68,71,76,80,76,71, 68,71,74,76,0,76,
+             81,79,77,76,74,72, 74,77,81,77,76,74, 76,80,83,80,76,74, 72,71,69,69,0,0];
+const BAJO = [45,52, 45,52, 40,47, 40,47, 45,52, 50,45, 40,47, 45,52];
+let ctx, timer = null, paso = 0, aud = null, suena = false;
+
+function pluck(m, vol, dur, off = 0) {
+  const t = ctx.currentTime + off, g = ctx.createGain(), lp = ctx.createBiquadFilter();
+  lp.type = "lowpass"; lp.frequency.value = m < 60 ? 700 : 3000;
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  lp.connect(g); g.connect(ctx.destination);
+  for (const d of [-6, 6]) {
+    const o = ctx.createOscillator();
+    o.type = "sawtooth"; o.detune.value = d;
+    o.frequency.value = 440 * 2 ** ((m - 69) / 12);
+    o.connect(lp); o.start(t); o.stop(t + dur);
+  }
+}
+function tocar() {
+  const i = paso++ % MEL.length;
+  if (MEL[i]) { pluck(MEL[i], .07, .4); pluck(MEL[i], .04, .3, .08); }
+  if (i % 3 === 0) pluck(BAJO[i / 3], .1, .5);
 }
 function musica(on) {
-  clearInterval(timer); timer = null;
-  if (on) {
-    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-    ctx.resume();
-    timer = setInterval(() => nota(NOTAS[n++ % NOTAS.length]), 420);
+  suena = on;
+  if (MUSICA) {
+    aud = aud || Object.assign(new Audio(MUSICA), { loop: true, volume: .6 });
+    on ? aud.play().catch(() => {}) : aud.pause();
+  } else {
+    clearInterval(timer);
+    if (on) {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      ctx.resume();
+      timer = setInterval(tocar, 165);
+    }
   }
   $("son").textContent = on ? "🔊" : "🔇";
 }
-$("son").onclick = () => musica(!timer);
+$("son").onclick = () => musica(!suena);
+document.addEventListener("visibilitychange", () => { if (document.hidden && suena) musica(false); });
 
-// Abrir el sobre
+// Abrir la carta
 $("abrir").onclick = () => {
   $("inicio").hidden = true;
   $("menu").hidden = false;
   $("son").hidden = false;
+  scrollTo(0, 0);
   musica(true);
 };
-
-// Corazones flotando
-for (let k = 0; k < 12; k++) {
-  const h = document.createElement("i");
-  h.className = "cora";
-  h.textContent = ["💗", "💛", "🌸"][k % 3];
-  h.style.left = Math.random() * 100 + "%";
-  h.style.fontSize = 14 + Math.random() * 16 + "px";
-  h.style.animationDuration = 8 + Math.random() * 8 + "s";
-  h.style.animationDelay = -Math.random() * 10 + "s";
-  document.body.appendChild(h);
-}
 </script>
 </body>
 </html>
