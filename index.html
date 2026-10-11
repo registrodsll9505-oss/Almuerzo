@@ -4,10 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fdebe8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tienes correo 💌">
+<meta property="og:description" content="Hay una carta para ti. Ábrela.">
 <title>Tienes correo 💌</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400&family=Italianno&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Italianno&display=swap" rel="stylesheet">
 <style>
 :root{--rubor:#fdebe8;--tinta:#1b2a4e;--gris:#6b7491;--rojo:#e0314f;
   --linea:rgba(27,42,78,.1);--ease:cubic-bezier(.2,.8,.2,1);
@@ -16,8 +19,9 @@
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--rojo);outline-offset:3px}
-body{min-height:100dvh;display:flex;align-items:center;justify-content:center;
-  padding:48px 22px 40px;overflow-x:hidden;color:var(--tinta);background:var(--rubor);
+body{min-height:100vh;min-height:100dvh;display:flex;align-items:center;
+  justify-content:center;padding:48px 22px 40px;overflow-x:hidden;
+  color:var(--tinta);background:var(--rubor);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
   -webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:10px;z-index:3;
@@ -40,9 +44,10 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 .foto{flex:1;min-height:0;position:relative;overflow:hidden;display:grid;
   place-items:center;font-size:54px;background:linear-gradient(160deg,#f9cdd3,#cdd6ee)}
 .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 38%}
+  object-position:50% 38%;opacity:0;transition:opacity .6s}
+.foto img.ok{opacity:1}
 .pie{display:flex;justify-content:space-between;align-items:baseline;padding:6px 2px 7px;
-  font-family:Didot,"Bodoni 72",Georgia,serif}
+  font-family:var(--serif)}
 .pie span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
 .pie b{font-size:18px;font-style:italic;font-weight:400}
 .mata{position:absolute;right:-64px;top:-34px;width:170px;transform:rotate(14deg);
@@ -62,7 +67,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
   box-shadow:0 0 0 1px rgba(27,42,78,.08)}
 .giorno{font-family:var(--serif);font-size:12px;letter-spacing:.3em;text-transform:uppercase}
 .fecha{margin-top:4px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gris)}
-.pregunta{margin:22px 0 4px;font-family:var(--serif);font-size:26px;line-height:1.15;font-weight:400}
+.pregunta{margin:22px 0 4px;font-family:var(--serif);font-size:26px;line-height:1.15;font-weight:500}
 .toca{margin-bottom:8px;font-size:14px;color:var(--gris)}
 .plato{display:flex;gap:10px;width:100%;padding:14px 0;text-align:left;font:inherit;
   color:inherit;background:none;border:0;border-top:1px solid var(--linea)}
@@ -83,6 +88,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 
 #resp{min-height:34px;margin:18px 0 10px;text-align:center;font-family:var(--script);
   font-size:32px;line-height:1.05;color:var(--rojo)}
+#resp.nota{animation:escribe .5s var(--ease) both}
 #antojo{width:100%;height:52px;margin-bottom:12px;padding:0 18px;font:inherit;font-size:16px;
   color:inherit;background:#fff;border:1px solid var(--linea);border-radius:16px}
 .btn{display:block;width:100%;height:54px;font:inherit;font-size:17px;font-weight:600;
@@ -96,6 +102,7 @@ h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.022em}
 @keyframes cae{from{opacity:0;transform:translateY(-30px) rotate(8deg) scale(1.15)}}
 @keyframes sella{from{opacity:0;transform:rotate(14deg) scale(1.7)}}
 @keyframes abre{from{opacity:0;transform:perspective(900px) rotateX(-22deg) translateY(18px)}}
+@keyframes escribe{from{opacity:0;transform:translateY(6px) rotate(-2deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -163,7 +170,12 @@ const OPCIONES = [
 const $ = id => document.getElementById(id);
 let sel = null;
 
-// Foto y fechas (se actualizan solas cada día)
+// Descarga las letras desde la portada para que la carta abra sin parpadeos
+if (document.fonts) ['50px Italianno', '18px "Bodoni Moda"', 'italic 15px "Bodoni Moda"']
+  .forEach(x => document.fonts.load(x));
+
+// Foto (aparece con fundido al cargar) y fechas automáticas
+$("foto").onload = e => e.target.classList.add("ok");
 $("foto").src = FOTO;
 const f = new Date();
 $("dia").textContent = f.toLocaleDateString("es-CO", { day: "numeric", month: "short" })
@@ -176,13 +188,19 @@ $("fecha").textContent = f.toLocaleDateString("it-IT",
 OPCIONES.forEach(o => {
   const b = document.createElement("button");
   b.className = "plato";
+  b.setAttribute("aria-pressed", "false");
   b.innerHTML = `<span class="cora">&#9829;&#xFE0E;</span><span class="tx">` +
     `<span class="fila"><strong>${o.t}</strong><span class="puntos"></span><em>${o.p}</em></span>` +
     `<small>${o.s}</small></span>`;
   b.onclick = () => {
     sel = o;
-    document.querySelectorAll(".plato").forEach(x => x.classList.toggle("on", x === b));
-    $("resp").textContent = o.r;
+    document.querySelectorAll(".plato").forEach(x => {
+      x.classList.toggle("on", x === b);
+      x.setAttribute("aria-pressed", x === b);
+    });
+    const r = $("resp");
+    r.textContent = o.r;
+    r.classList.remove("nota"); void r.offsetWidth; r.classList.add("nota");
     $("antojo").hidden = !o.antojo;
     $("enviar").hidden = false;
     $("enviar").scrollIntoView({ behavior: "smooth", block: "nearest" });
